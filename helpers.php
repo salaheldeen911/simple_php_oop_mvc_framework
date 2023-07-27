@@ -94,3 +94,11 @@ if (!function_exists('createUser')) {
         }
     }
 }
+
+if (!function_exists('method')) {
+
+    function method(string $method): string
+    {
+        return "<input name='_method' type='hidden' value='$method'>";
+    }
+}

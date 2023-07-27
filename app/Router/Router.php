@@ -6,7 +6,9 @@ use App\Exceptions\RouteNotFoundException;
 
 class Router
 {
+    const ACCEPTED_REQUEST_METHOD = ["GET", "POST", "PUT", "PATCH", "DELETE"];
     private array $routes = [];
+    private $requestMethod = "";
 
     public function get(string $route, callable | array $action): self
     {
@@ -45,45 +47,46 @@ class Router
 
     public function resolve(string $requestUri)
     {
+        $requestMethod = $this->setRequestMethod();
         $route = explode('?', $requestUri)[0];
         $pathFragments = explode('/', $route);
         $id = array_values(array_filter($pathFragments, fn ($i) => intval($i) ? (int) $i : false))[0] ?? null;
-        $action = $this->routes[$_SERVER['REQUEST_METHOD']][$route] ?? null;
+        $action = $this->routes[$requestMethod][$route] ?? null;
 
         if ($action) {
-            return $this->doAction($action, $id);
+            return $this->doAction($action);
         } else {
             if (!$id) return notFound();
 
             $wildCardRoute = str_replace($id, "{id}", $route);
 
-            if (!isset($this->routes[$_SERVER['REQUEST_METHOD']][$wildCardRoute])) return notFound();
+            if (!isset($this->routes[$requestMethod][$wildCardRoute])) return notFound();
 
-            $action = $this->routes[$_SERVER['REQUEST_METHOD']][$wildCardRoute];
+            $action = $this->routes[$requestMethod][$wildCardRoute];
         }
 
-        return $this->doAction($action, $id);
+        return $this->doAction($action,  $id);
     }
 
     private function doAction($action, $id = null)
     {
-        [$class, $method] = $action;
-        $class = new $class();
+        [$targetClass, $method] = $action;
+        $targetClass = new $targetClass();
 
-        if (method_exists($class, $method)) {
+        if (method_exists($targetClass, $method)) {
             if (!empty($_REQUEST)) {
-                $requestClass = $this->getMethodRequestClass($class, $method);
+                $requestClass = $this->getMethodRequestClass($targetClass, $method);
                 if ($requestClass) {
-                    if ($id) return $class->$method(new $requestClass($_REQUEST), $id);
+                    if ($id) return $targetClass->$method(new $requestClass($_REQUEST), $id);
 
-                    return $class->$method(new $requestClass($_REQUEST));
+                    return $targetClass->$method(new $requestClass($_REQUEST));
                 } else {
-                    return $class->$method($_REQUEST);
+                    return $targetClass->$method($_REQUEST);
                 }
             } else {
-                if ($id) return $class->$method($id);
+                if ($id) return $targetClass->$method($id);
 
-                return $class->$method();
+                return $targetClass->$method();
             }
         }
 
@@ -101,5 +104,24 @@ class Router
     private function register(string $requestMethod, string $route, callable | array $action): void
     {
         $this->routes[$requestMethod][$route] = $action;
+    }
+
+    private function setRequestMethod(): string
+    {
+        if (!isset($_REQUEST['_method'])) {
+            $this->requestMethod = $_SERVER["REQUEST_METHOD"];
+
+            return $this->requestMethod;
+        }
+
+        if (in_array(strtoupper($_REQUEST['_method']), self::ACCEPTED_REQUEST_METHOD)) {
+            $this->requestMethod = strtoupper($_REQUEST['_method']);
+            unset($_REQUEST['_method']);
+
+            return $this->requestMethod;
+        }
+
+        throw new \Exception("Request method must be one of these types " . implode(", ", self::ACCEPTED_REQUEST_METHOD));
+        exit;
     }
 }

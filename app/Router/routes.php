@@ -14,7 +14,7 @@ $router
     ->get('/wisdoms/create', [WisdomController::class, 'create'])
     ->post('/wisdoms', [WisdomController::class, 'store'])
     ->get('/wisdoms/{id}/edit', [WisdomController::class, 'edit'])
-    ->post('/wisdoms/{id}/update', [WisdomController::class, 'update'])
-    ->post('/wisdoms/{id}/delete', [WisdomController::class, 'delete'])
+    ->put('/wisdoms/{id}', [WisdomController::class, 'update'])
+    ->delete('/wisdoms/{id}', [WisdomController::class, 'delete'])
 
     ->get('/notFound', [NotFound::class, 'index']);

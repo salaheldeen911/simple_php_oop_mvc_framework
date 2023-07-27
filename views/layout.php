@@ -11,6 +11,7 @@
             font-size: 16px;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            transition: all 0.6s;
         }
 
         body {
@@ -297,11 +298,7 @@
             cursor: pointer;
         }
 
-        * {
-            transition: all 0.6s;
-        }
-
-        #main {
+        .main {
             display: table;
             width: 100%;
             height: 100vh;

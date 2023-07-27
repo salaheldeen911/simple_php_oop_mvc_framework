@@ -20,7 +20,9 @@
                             <i style="color:green" class="fas fa-pencil-alt"></i>
                         </a>
                         <i onclick="deleteWisdom(this)" style="color:red" class="fas fa-trash-alt"></i>
-                        <form action="/wisdoms/<?= $wisdom->id ?>/delete" method="POST"></form>
+                        <form action="/wisdoms/<?= $wisdom->id ?>" method="POST">
+                            <?= method("delete") ?>
+                        </form>
                     </div>
                     <span><?= $wisdom->content ?></span>
                 </div>
