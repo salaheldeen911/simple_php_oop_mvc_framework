@@ -113,4 +113,4 @@ class WisdomController extends Controller
 <be>
 **Also, you can provide your Request class and override the ```$requires``` property to track your required properties in the request.**
 
-**Important Note:** Don't use this for real projects use **Laravel** insted.
+**Important Note:** Don't use this for real projects use **Laravel** instead.
