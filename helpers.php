@@ -22,6 +22,7 @@ if (!function_exists('user')) {
     function user(): null | stdClass
     {
         if (isset($_SESSION['user'])) {
+
             return $_SESSION['user'];
         }
 
@@ -34,20 +35,19 @@ if (!function_exists('defineUser')) {
     function defineUser(string $ip): void
     {
         try {
-            if (userExists($ip)) {
-                $_SESSION['user'] = userExists($ip);
-                exit;
+            $user = userExists($ip);
+            if ($user) {
+                $_SESSION['user'] = $user;
             }
 
             $user = (new User)->create([
                 "ip" => $ip,
                 "name" => "user-" . time()
             ]);
+
             $_SESSION['user'] = $user;
-            exit;
         } catch (\Exception $e) {
             die("Failed: " . $e->getMessage());
-            exit;
         }
     }
 }

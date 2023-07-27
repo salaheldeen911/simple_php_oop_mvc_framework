@@ -65,7 +65,7 @@ class Model
             $statement = $this->db->prepare("INSERT INTO $this->table ($keys) VALUES ($qMarks)");
             $statement->execute(array_values($data));
 
-            return true;
+            return $this->find($this->db->lastInsertId());
         } catch (\Exception $e) {
             die("Failed: " . $e->getMessage());
 
@@ -80,7 +80,7 @@ class Model
             $this->sth = $this->db->prepare("UPDATE $this->table SET $colomns WHERE id=$id");
             $this->sth->execute(array_values($data));
 
-            return true;
+            return $this->find($id);
         } catch (\Exception $e) {
             die("failed: " . $e->getMessage());
 
