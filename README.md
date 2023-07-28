@@ -1,8 +1,7 @@
-# simple_php_oop_mvc_framework
-**This is an MVC structure in OOP using pure PHP 8.1.**
-<br>
-**This framework is not a tutorial on the internet.**
-<br>
+# Welcome
+**This is an MVC structure in OOP using pure PHP 8.1. And this project is not a tutorial on the internet.**
+## Components
+### Routes
 **This framework has a ```routes.php``` file where you can define your routes like the next example.**
 <be>
 ```
@@ -16,6 +15,7 @@ $router
     ->put('/wisdoms/{id}', [WisdomController::class, 'update'])
     ->delete('/wisdoms/{id}', [WisdomController::class, 'delete'])
 ```
+### Controllers
 **You can declare your own controller in the controllers' directory like this example controller.**
 <be>
 ```
@@ -44,7 +44,6 @@ class WisdomController extends Controller
             ->from("wisdoms")
             ->join("users", ["wisdoms.user_id=users.id"])
             ->orderBy("wisdoms.id", "DESC")
-            ->limit($offset, $no_of_records_per_page)
             ->get();
 
         return $this->view("wisdoms.index", ["wisdoms" => $wisdoms]);
@@ -106,11 +105,13 @@ class WisdomController extends Controller
 }
 
 ```
-
+### Models
 **As you can see, I've provided some eloquent model features like ``` create()```, ```update```, etc...**
+### Helpers
+**As you can see also, I've provided some helper functions like ``` notFound()```, ```view()```, etc...**
 <br>
 **As you can see also, I've provided a very simple QB (Query Builder) class that you can use for simple queries.**
-<be>
+<br>
 **Also, you can provide your Request class and override the ```$requires``` property to track your required properties in the request.**
-
+<br>
 **Important Note:** Don't use this for real projects use **Laravel** instead.
