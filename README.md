@@ -1,9 +1,42 @@
 # Welcome
 **This is an MVC structure in OOP using pure PHP 8.1. And this project is not a tutorial on the internet.**
 ## Components
+### Initialization
+```
+// App\Config\init.php
+
+    define("APP_NAME", 'OOP MVC SIMPLE FRAMEWORK');
+    
+    if (!user()) {
+        defineUser($_SERVER["REMOTE_ADDR"]);
+    }
+```
+**As you can see, we are defining the APP_NAME and the user (based on his ip) before every thing.**
+### Database Credentials
+**You can declare your own Database Credentials at the ```App\Config\PDOCredentials``` class like this example below.**
+```
+<?php
+
+namespace App\Config;
+
+use PDO;
+
+class PDOCredentials
+{
+    protected static string $servername  = "localhost";
+    protected static string $dbname = "mvc_framework";
+    protected static string $username = "root";
+    protected static string $password = "";
+    protected static array  $driver_options = [
+        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'",
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
+    ];
+}
+```
 ### Routes
 **This framework has a ```routes.php``` file where you can define your routes like the next example.**
-<be>
+<br>
 ```
 $router = new Router();
 
@@ -16,8 +49,8 @@ $router
     ->delete('/wisdoms/{id}', [WisdomController::class, 'delete'])
 ```
 ### Controllers
-**You can declare your own controller in the controllers' directory like this example controller.**
-<be>
+**You can declare your own controller in the controllers' directory and extends the base ```Controller::class``` like this example controller.**
+<br>
 ```
 <?php
 
@@ -44,7 +77,7 @@ class WisdomController extends Controller
             ->from("wisdoms")
             ->join("users", ["wisdoms.user_id=users.id"])
             ->orderBy("wisdoms.id", "DESC")
-            ->get();
+            ->getAll();
 
         return $this->view("wisdoms.index", ["wisdoms" => $wisdoms]);
     }
@@ -106,12 +139,24 @@ class WisdomController extends Controller
 
 ```
 ### Models
-**As you can see, I've provided some eloquent model features like ``` create()```, ```update```, etc...**
-### Helpers
-**As you can see also, I've provided some helper functions like ``` notFound()```, ```view()```, etc...**
-<br>
+**As you can see, I've provided some eloquent model features like ```create($data)```, ```update($id, $data)```, etc...**
+### QB (Query Builder)
 **As you can see also, I've provided a very simple QB (Query Builder) class that you can use for simple queries.**
+### Helpers
+**As you can see also, I've provided some helper functions like ``` notFound()```, ```view($path, $data)```, etc...**
 <br>
-**Also, you can provide your Request class and override the ```$requires``` property to track your required properties in the request.**
+<br>
+**Also, you can provide your Request class and  and extends the base ```Request::class``` and override the ```$requires``` property to track your required properties in the request like the next example.**
+<br>
+```
+<?php
+
+namespace App\Request;
+
+class StoreWisdomRequest extends Request
+{
+    protected array $requires = ["content", "user_id"];
+}
+```
 <br>
 **Important Note:** Don't use this for real projects use **Laravel** instead.
