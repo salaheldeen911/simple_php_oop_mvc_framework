@@ -158,6 +158,4 @@ class StoreWisdomRequest extends Request
     protected array $requires = ["content", "user_id"];
 }
 ```
-<br>
-## Important Note:
-Don't use this for real projects use **Laravel** instead.
+
