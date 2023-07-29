@@ -11,7 +11,7 @@
         defineUser($_SERVER["REMOTE_ADDR"]);
     }
 ```
-**As you can see, we are defining the APP_NAME and the user (based on his ip) before every thing.**
+**As you can see, we are defining the APP_NAME and the user (based on his ip) at the initialization of the app.**
 ### Database Credentials
 **You can declare your own Database Credentials at the ```App\Config\PDOCredentials``` class like this example below.**
 ```
