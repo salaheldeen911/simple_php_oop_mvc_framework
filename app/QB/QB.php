@@ -2,7 +2,7 @@
 
 namespace App\QB;
 
-use App\config\DB;
+use App\DB\DB;
 use PDO;
 
 class QB
@@ -64,7 +64,7 @@ class QB
         return $this;
     }
 
-    public function get(): array
+    public function getAll(): array
     {
         $sth = $this->db->prepare($this->statement);
         $sth->execute();

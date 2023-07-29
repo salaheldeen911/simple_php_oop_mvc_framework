@@ -1,6 +1,6 @@
 <?php
 
-use App\config\DB;
+use App\DB\DB;
 use App\Models\User;
 
 if (!function_exists('view')) {
@@ -36,16 +36,17 @@ if (!function_exists('defineUser')) {
     {
         try {
             $user = userExists($ip);
+
             if ($user) {
                 $_SESSION['user'] = $user;
+            } else {
+                $user = (new User)->create([
+                    "ip" => $ip,
+                    "name" => "user-" . time()
+                ]);
+
+                $_SESSION['user'] = $user;
             }
-
-            $user = (new User)->create([
-                "ip" => $ip,
-                "name" => "user-" . time()
-            ]);
-
-            $_SESSION['user'] = $user;
         } catch (\Exception $e) {
             die("Failed: " . $e->getMessage());
         }
@@ -57,6 +58,15 @@ if (!function_exists('notFound')) {
     function notFound(): void
     {
         header("Location: /notFound");
+        exit;
+    }
+}
+
+if (!function_exists('redirectTo')) {
+
+    function redirectTo($path): void
+    {
+        header("Location: /$path");
         exit;
     }
 }
@@ -80,20 +90,6 @@ if (!function_exists('userExists')) {
     }
 }
 
-if (!function_exists('createUser')) {
-
-    function createUser(string $ip): void
-    {
-        try {
-            (new User)->create([
-                "ip" => $ip,
-                "name" => "user-" . time(),
-            ]);
-        } catch (\Exception $e) {
-            die("Failed: " . $e->getMessage());
-        }
-    }
-}
 
 if (!function_exists('method')) {
 

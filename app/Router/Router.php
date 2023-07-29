@@ -53,17 +53,13 @@ class Router
         $id = array_values(array_filter($pathFragments, fn ($i) => intval($i) ? (int) $i : false))[0] ?? null;
         $action = $this->routes[$requestMethod][$route] ?? null;
 
-        if ($action) {
-            return $this->doAction($action);
-        } else {
-            if (!$id) return notFound();
+        if ($action) return $this->doAction($action);
 
-            $wildCardRoute = str_replace($id, "{id}", $route);
+        $wildCardRoute = str_replace($id, "{id}", $route);
 
-            if (!isset($this->routes[$requestMethod][$wildCardRoute])) return notFound();
+        if (!$id || !isset($this->routes[$requestMethod][$wildCardRoute])) return throw new RouteNotFoundException();
 
-            $action = $this->routes[$requestMethod][$wildCardRoute];
-        }
+        $action = $this->routes[$requestMethod][$wildCardRoute];
 
         return $this->doAction($action,  $id);
     }
@@ -90,8 +86,7 @@ class Router
             }
         }
 
-        throw new RouteNotFoundException();
-        exit;
+        return throw new RouteNotFoundException();
     }
 
     private function getMethodRequestClass($class, $method)

@@ -28,7 +28,7 @@ class WisdomController extends Controller
             ->join("users", ["wisdoms.user_id=users.id"])
             ->orderBy("wisdoms.id", "DESC")
             ->limit($offset, $no_of_records_per_page)
-            ->get();
+            ->getAll();
 
         return $this->view("wisdoms.index", [
             "wisdoms" => $wisdoms,
@@ -52,8 +52,7 @@ class WisdomController extends Controller
             "user_id" => $request->user_id,
         ]);
 
-        header("Location: /wisdoms");
-        exit;
+        return redirectTo("wisdoms");
     }
 
     public function edit($id)
@@ -74,8 +73,7 @@ class WisdomController extends Controller
                 "content" => $request->content,
             ]);
 
-            header("Location: /wisdoms");
-            exit;
+            return redirectTo("wisdoms");
         }
 
         return notFound();
@@ -85,8 +83,8 @@ class WisdomController extends Controller
     {
         if ($this->wisdom->exists($id)) {
             $this->wisdom->delete($id);
-            header("Location: /wisdoms");
-            exit;
+
+            return redirectTo("wisdoms");
         }
 
         return notFound();
