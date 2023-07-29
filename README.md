@@ -161,3 +161,5 @@ class StoreWisdomRequest extends Request
 
 ## Important Note:
 Don't use this for real projects use **Laravel** instead.
+<br>
+https://salaheldeen911.github.io/new-cv/
