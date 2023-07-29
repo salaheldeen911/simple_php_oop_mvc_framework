@@ -96,8 +96,7 @@ class WisdomController extends Controller
             "user_id" => $request->user_id,
         ]);
 
-        header("Location: /wisdoms");
-        exit;
+        return redirectTo("wisdoms");
     }
 
     public function edit($id)
@@ -118,8 +117,7 @@ class WisdomController extends Controller
                 "content" => $request->content,
             ]);
 
-            header("Location: /wisdoms");
-            exit;
+            return redirectTo("wisdoms");
         }
 
         return notFound();
@@ -129,14 +127,13 @@ class WisdomController extends Controller
     {
         if ($this->wisdom->exists($id)) {
             $this->wisdom->delete($id);
-            header("Location: /wisdoms");
-            exit;
+
+            return redirectTo("wisdoms");
         }
 
         return notFound();
     }
 }
-
 ```
 ### Models
 **I've provided some eloquent model features like ```create($data)```, ```update($id, $data)```, etc...**
