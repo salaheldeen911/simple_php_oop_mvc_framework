@@ -139,11 +139,11 @@ class WisdomController extends Controller
 
 ```
 ### Models
-**As you can see, I've provided some eloquent model features like ```create($data)```, ```update($id, $data)```, etc...**
+**I've provided some eloquent model features like ```create($data)```, ```update($id, $data)```, etc...**
 ### QB (Query Builder)
-**As you can see also, I've provided a very simple QB (Query Builder) class that you can use for simple queries.**
+**I've provided a very simple QB (Query Builder) class that you can use for simple queries.**
 ### Helpers
-**As you can see also, I've provided some helper functions like ``` notFound()```, ```view($path, $data)```, etc...**
+**I've provided some helper functions like ``` notFound()```, ```view($path, $data)```, etc...**
 <br>
 <br>
 **Also, you can provide your Request class and  and extends the base ```Request::class``` and override the ```$requires``` property to track your required properties in the request like the next example.**
@@ -159,4 +159,5 @@ class StoreWisdomRequest extends Request
 }
 ```
 <br>
-**Important Note:** Don't use this for real projects use **Laravel** instead.
+## Important Note:
+Don't use this for real projects use **Laravel** instead.
