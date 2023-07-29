@@ -142,7 +142,7 @@ class WisdomController extends Controller
 ### Helpers
 **I've provided some helper functions like ``` notFound()```, ```view($path, $data)```, etc...**
 <br>
-<br>
+### Request
 **Also, you can provide your Request class and  and extends the base ```Request::class``` and override the ```$requires``` property to track your required properties in the request like the next example.**
 <br>
 ```
