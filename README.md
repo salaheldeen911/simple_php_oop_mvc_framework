@@ -11,7 +11,7 @@
         defineUser($_SERVER["REMOTE_ADDR"]);
     }
 ```
-**As you can see, we are defining the APP_NAME and the user (based on his ip) at the initialization of the app.**
+**As you can see, we are defining the APP_NAME and the user (based on his IP) at the initialization of the app.**
 ### Database Credentials
 **You can declare your own Database Credentials at the ```App\Config\PDOCredentials``` class like this example below.**
 ```
@@ -143,7 +143,7 @@ class WisdomController extends Controller
 **I've provided some helper functions like ``` notFound()```, ```view($path, $data)```, etc...**
 <br>
 ### Request
-**Also, you can provide your Request class and  and extends the base ```Request::class``` and override the ```$requires``` property to track your required properties in the request like the next example.**
+**Also, you can provide your Request class and extends the base ```Request::class``` and override the ```$requires``` property to track your required properties in the request like the next example.**
 <br>
 ```
 <?php
