@@ -1,19 +1,27 @@
 # Welcome
+
 **This is an MVC structure in OOP using pure PHP 8.1. And this project is not a tutorial on the internet.**
+
 ## Components
+
 ### Initialization
+
 ```
 // App\Config\init.php
 
     define("APP_NAME", 'OOP MVC SIMPLE FRAMEWORK');
-    
+
     if (!user()) {
         defineUser($_SERVER["REMOTE_ADDR"]);
     }
 ```
+
 **As you can see, we are defining the APP_NAME and the user (based on his IP) at the initialization of the app.**
+
 ### Database Credentials
-**You can declare your own Database Credentials at the ```App\Config\PDOCredentials``` class like this example below.**
+
+**You can declare your own Database Credentials at the `App\Config\PDOCredentials` class like this example below.**
+
 ```
 <?php
 
@@ -34,9 +42,12 @@ class PDOCredentials
     ];
 }
 ```
+
 ### Routes
-**This framework has a ```routes.php``` file where you can define your routes like the next example.**
+
+**This framework has a `routes.php` file where you can define your routes like the next example.**
 <br>
+
 ```
 $router = new Router();
 
@@ -48,9 +59,12 @@ $router
     ->put('/wisdoms/{id}', [WisdomController::class, 'update'])
     ->delete('/wisdoms/{id}', [WisdomController::class, 'delete'])
 ```
+
 ### Controllers
-**You can declare your own controller in the controllers' directory and extends the base ```Controller::class``` like this example controller.**
+
+**You can declare your own controller in the controllers' directory and extends the base `Controller::class` like this example controller.**
 <br>
+
 ```
 <?php
 
@@ -135,16 +149,29 @@ class WisdomController extends Controller
     }
 }
 ```
+
+### Views
+
+**The `view(string $path, array $data)` method exists in the base controller and the `$path` parameter target the `views\pages` directory and you can access the sub directory by `.` , and the `$data` parameter is an associative array like in the controller example**
+
 ### Models
-**I've provided some eloquent model features like ```create($data)```, ```update($id, $data)```, etc...**
+
+**I've provided some eloquent model features like `create($data)`, `update($id, $data)`, etc...**
+
 ### QB (Query Builder)
+
 **I've provided a very simple QB (Query Builder) class that you can use for simple queries.**
+
 ### Helpers
-**I've provided some helper functions like ``` notFound()```, ```view($path, $data)```, etc...**
+
+**I've provided some helper functions like ` notFound()`, `view($path, $data)`, etc...**
 <br>
+
 ### Request
-**Also, you can provide your Request class and extends the base ```Request::class``` and override the ```$requires``` property to track your required properties in the request like the next example.**
+
+**Also, you can provide your Request class and extends the base `Request::class` and override the `$requires` property to track your required properties in the request like the next example.**
 <br>
+
 ```
 <?php
 
@@ -157,6 +184,7 @@ class StoreWisdomRequest extends Request
 ```
 
 ## Important Note:
+
 Don't use this for real projects use **Laravel** instead.
 <br>
 https://salaheldeen911.github.io/new-cv/
