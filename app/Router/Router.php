@@ -110,7 +110,7 @@ class Router
             return $this->requestMethod;
         }
 
-        if (in_array(strtoupper($_REQUEST['_method']), self::ACCEPTED_REQUEST_METHOD)) {
+        if (is_string($_REQUEST['_method']) && in_array(strtoupper($_REQUEST['_method']), self::ACCEPTED_REQUEST_METHOD)) {
             $this->requestMethod = strtoupper($_REQUEST['_method']);
             unset($_REQUEST['_method']);
 
