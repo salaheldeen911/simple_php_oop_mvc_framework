@@ -164,7 +164,7 @@ class WisdomController extends Controller
 
 ### Helpers
 
-**I've provided some helper functions like ` notFound()`, `view($path, $data)`, etc...**
+**I've provided some helper functions like ` notFound()`, `redirectTo(string $path)`, etc...**
 <br>
 
 ### Request
