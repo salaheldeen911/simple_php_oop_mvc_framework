@@ -57,7 +57,7 @@ class Router
 
         $wildCardRoute = str_replace($id, "{id}", $route);
 
-        if (!$id || !isset($this->routes[$requestMethod][$wildCardRoute])) return throw new RouteNotFoundException();
+        if (!$id || !isset($this->routes[$requestMethod][$wildCardRoute])) return notFound();
 
         $action = $this->routes[$requestMethod][$wildCardRoute];
 
@@ -86,7 +86,8 @@ class Router
             }
         }
 
-        return throw new RouteNotFoundException();
+        throw new RouteNotFoundException();
+        exit;
     }
 
     private function getMethodRequestClass($class, $method)
